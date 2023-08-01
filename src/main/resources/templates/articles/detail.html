@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게시글 페이지</title>
+</head>
+
+<body>
+
+<header id="header"></header>
+
+<main>
+  <header>
+    <h1>첫번째 글</h1>
+  </header>
+  <aside>
+    <p>hi</p>
+    <p><a href="mailto:wefwe@gamil.com">wef@gmaio.com</a></p>
+    <p><time datetime="2022-01-01T00:00:00">2022-01-01</time></p>
+    <p>#java</p>
+  </aside>
+  <section>
+    <p>본문<br><br></p>
+
+    <div>
+      <!--    댓글을 넣을 수 있는 영역-->
+      <form>
+        <label for="articleComment" hidden>댓글</label>
+        <textarea id="articleComment" placeholder="댓글쓰기" rows="3"></textarea>
+        <button type="submit">쓰기</button>
+      </form>
+
+      <!--      기존의 댓글을 보여주는 영역-->
+      <ul>
+        <li>
+          <div>
+            <time><small>2022-01-01</small></time>
+            <strong>123</strong>
+            <p>
+              test
+            </p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <time><small>2022-01-01</small></time>
+            <strong>123</strong>
+            <p>
+              test
+            </p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <time><small>2022-01-01</small></time>
+            <strong>123</strong>
+            <p>
+              test
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!--    네이게이션 바 - 이전글, 다음글-->
+    <nav>
+      <a href="#">이전 글</a>
+      <a href="#">다음 글</a>
+    </nav>
+  </section>
+
+</main>
+
+<footer id="footer"></footer>
+
+</body>
+</html>
