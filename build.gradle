@@ -52,8 +52,11 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
 
     // thymeleaf
-
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
     // lombok
     compileOnly 'org.projectlombok:lombok'
