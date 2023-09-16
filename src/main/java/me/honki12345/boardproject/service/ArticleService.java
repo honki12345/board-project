@@ -3,14 +3,12 @@ package me.honki12345.boardproject.service;
 import lombok.RequiredArgsConstructor;
 import me.honki12345.boardproject.domain.type.SearchType;
 import me.honki12345.boardproject.dto.ArticleDTO;
-import me.honki12345.boardproject.dto.ArticleUpdateDTO;
+import me.honki12345.boardproject.dto.ArticleWithCommentsDTO;
 import me.honki12345.boardproject.repository.ArticleRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional
@@ -19,12 +17,12 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
 
     @Transactional(readOnly = true)
-    public Page<ArticleDTO> searchArticles(SearchType searchType, String searchKeyword) {
+    public Page<ArticleDTO> searchArticles(SearchType searchType, String searchKeyword, Pageable pageable) {
         return Page.empty();
     }
 
     @Transactional(readOnly = true)
-    public ArticleDTO searchArticle(long articleId) {
+    public ArticleWithCommentsDTO getArticle(long articleId) {
         return null;
     }
 
@@ -32,7 +30,7 @@ public class ArticleService {
 
     }
 
-    public void updateArticle(long articleId, ArticleUpdateDTO dto) {
+    public void updateArticle(ArticleDTO dto) {
     }
 
     public void deleteArticle(long articleId) {
