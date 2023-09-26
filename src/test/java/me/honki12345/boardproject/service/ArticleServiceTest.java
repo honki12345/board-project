@@ -177,7 +177,7 @@ class ArticleServiceTest {
     void givenArticleInfo_whenSavingArticle_thenSavesArticle() {
         // Given
         ArticleDTO dto = createArticleDTO();
-        given(userAccountRepository.getReferenceById(Long.valueOf(dto.userAccountDTO().userId()))).willReturn(createUserAccount());
+        given(userAccountRepository.getReferenceById(dto.userAccountDTO().userId()))).willReturn(createUserAccount());
         given(articleRepository.save(any(Article.class))).willReturn(createArticle());
 
         // When

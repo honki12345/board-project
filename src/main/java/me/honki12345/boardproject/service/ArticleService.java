@@ -56,7 +56,7 @@ public class ArticleService {
     }
 
     public void saveArticle(ArticleDTO dto) {
-        UserAccount userAccount = userAccountRepository.getReferenceById(Long.valueOf(dto.userAccountDTO().userId()));
+        UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDTO().userId());
         articleRepository.save(dto.toEntity(userAccount));
     }
 
