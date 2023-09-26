@@ -1,4 +1,4 @@
-package me.honki12345.boardproject.domain.type;
+package me.honki12345.boardproject.domain.constant;
 
 import lombok.Getter;
 
