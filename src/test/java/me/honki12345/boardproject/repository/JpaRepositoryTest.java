@@ -1,6 +1,5 @@
 package me.honki12345.boardproject.repository;
 
-import me.honki12345.boardproject.UserAccountRepository;
 import me.honki12345.boardproject.config.JpaConfig;
 import me.honki12345.boardproject.domain.Article;
 import me.honki12345.boardproject.domain.UserAccount;

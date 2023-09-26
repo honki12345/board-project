@@ -2,8 +2,10 @@ package me.honki12345.boardproject.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.honki12345.boardproject.domain.UserAccount;
+import me.honki12345.boardproject.repository.UserAccountRepository;
 import me.honki12345.boardproject.domain.Article;
-import me.honki12345.boardproject.domain.type.SearchType;
+import me.honki12345.boardproject.domain.constant.SearchType;
 import me.honki12345.boardproject.dto.ArticleDTO;
 import me.honki12345.boardproject.dto.ArticleWithCommentsDTO;
 import me.honki12345.boardproject.repository.ArticleRepository;
@@ -21,6 +23,7 @@ import java.util.List;
 @Service
 public class ArticleService {
     private final ArticleRepository articleRepository;
+    private final UserAccountRepository userAccountRepository;
 
     @Transactional(readOnly = true)
     public Page<ArticleDTO> searchArticles(SearchType searchType, String searchKeyword, Pageable pageable) {
@@ -39,19 +42,27 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public ArticleWithCommentsDTO getArticle(long articleId) {
+    public ArticleWithCommentsDTO getArticleWithComments(long articleId) {
         return articleRepository.findById(articleId)
                 .map(ArticleWithCommentsDTO::from)
                 .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다 - articleId: " + articleId));
     }
 
-    public void saveArticle(ArticleDTO dto) {
-        articleRepository.save(dto.toEntity());
+    @Transactional(readOnly = true)
+    public ArticleDTO getArticle(Long articleId) {
+        return articleRepository.findById(articleId)
+                .map(ArticleDTO::from)
+                .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다 - articleId: " + articleId));
     }
 
-    public void updateArticle(ArticleDTO dto) {
+    public void saveArticle(ArticleDTO dto) {
+        UserAccount userAccount = userAccountRepository.getReferenceById(Long.valueOf(dto.userAccountDTO().userId()));
+        articleRepository.save(dto.toEntity(userAccount));
+    }
+
+    public void updateArticle(Long articleId, ArticleDTO dto) {
         try {
-            Article article = articleRepository.getReferenceById(dto.id());
+            Article article = articleRepository.getReferenceById(articleId);
             if (dto.title() != null) { article.setTitle(dto.title()); }
             if (dto.content() != null) { article.setContent(dto.content()); }
             article.setHashtag(dto.hashtag());

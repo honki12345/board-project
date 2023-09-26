@@ -1,4 +1,4 @@
-package me.honki12345.boardproject;
+package me.honki12345.boardproject.repository;
 
 import me.honki12345.boardproject.domain.UserAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
