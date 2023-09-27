@@ -7,6 +7,7 @@ import me.honki12345.boardproject.dto.ArticleCommentDTO;
 import me.honki12345.boardproject.dto.UserAccountDTO;
 import me.honki12345.boardproject.repository.ArticleCommentRepository;
 import me.honki12345.boardproject.repository.ArticleRepository;
+import me.honki12345.boardproject.repository.UserAccountRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,10 +31,9 @@ import static org.mockito.BDDMockito.willDoNothing;
 class ArticleCommentServiceTest {
     @InjectMocks
     private ArticleCommentService sut;
-    @Mock
-    private ArticleCommentRepository articleCommentRepository;
-    @Mock
-    private ArticleRepository articleRepository;
+    @Mock private ArticleCommentRepository articleCommentRepository;
+    @Mock private ArticleRepository articleRepository;
+    @Mock private UserAccountRepository userAccountRepository;
 
     @DisplayName("게시글 ID로 조회하면, 해당하는 댓글 리스트를 반환한다.")
     @Test
@@ -59,6 +59,7 @@ class ArticleCommentServiceTest {
         // given
         ArticleCommentDTO dto = createArticleCommentDTO("댓글");
         given(articleRepository.getReferenceById(dto.articleId())).willReturn(createArticle());
+        given(userAccountRepository.getReferenceById(dto.userAccountDTO().userId())).willReturn(createUserAccount());
         given(articleCommentRepository.save(any(ArticleComment.class))).willReturn(null);
 
         // when
@@ -66,6 +67,7 @@ class ArticleCommentServiceTest {
 
         // then
         then(articleRepository).should().getReferenceById(dto.articleId());
+        then(userAccountRepository).should().getReferenceById(dto.userAccountDTO().userId());
         then(articleCommentRepository).should().save(any(ArticleComment.class));
     }
 
@@ -81,6 +83,7 @@ class ArticleCommentServiceTest {
 
         // then
         then(articleRepository).should().getReferenceById(dto.articleId());
+        then(userAccountRepository).shouldHaveNoInteractions();
         then(articleCommentRepository).shouldHaveNoInteractions();
     }
 
