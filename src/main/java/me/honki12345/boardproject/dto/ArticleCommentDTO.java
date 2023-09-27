@@ -2,6 +2,7 @@ package me.honki12345.boardproject.dto;
 
 import me.honki12345.boardproject.domain.Article;
 import me.honki12345.boardproject.domain.ArticleComment;
+import me.honki12345.boardproject.domain.UserAccount;
 
 import java.time.LocalDateTime;
 
@@ -15,8 +16,20 @@ public record ArticleCommentDTO(
         LocalDateTime modifiedAt,
         String modifiedBy
 ) {
+    public static ArticleCommentDTO of(Long articleId, UserAccountDTO userAccountDTO, String content) {
+        return new ArticleCommentDTO(null, articleId, userAccountDTO, content, null, null, null, null);
+    }
+
     public static ArticleCommentDTO of(Long id, Long articleId, UserAccountDTO userAccountDTO, String content, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
         return new ArticleCommentDTO(id, articleId, userAccountDTO, content, createdAt, createdBy, modifiedAt, modifiedBy);
+    }
+
+    public ArticleComment toEntity(Article article, UserAccount userAccount) {
+        return ArticleComment.of(
+                article,
+                userAccount,
+                content
+        );
     }
 
     public static ArticleCommentDTO from(ArticleComment entity) {
